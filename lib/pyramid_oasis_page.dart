@@ -1,184 +1,171 @@
 import 'package:flutter/material.dart';
+import 'coach_login_page.dart';
 
-class PyramidOasisPage extends StatefulWidget {
+class PyramidOasisPage extends StatelessWidget {
   const PyramidOasisPage({super.key});
-
-  @override
-  State<PyramidOasisPage> createState() => _PyramidOasisPageState();
-}
-
-class _PyramidOasisPageState extends State<PyramidOasisPage> {
-  int selectedDistance = 50;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFAF5EF),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // HEADER SECTION
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
-              decoration: const BoxDecoration(
-                color: Color(0xFF1E3264),
-                borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(50),
-                ),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // 🔹 LOGO + TITLE (sejajar)
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/pyramid.png',
-                        height: 70,
-                      ),
-                      const SizedBox(width: 12),
-                      const Expanded(
-                        child: Text(
-                          'Pyramid Oasis Swimming Club',
-                          style: TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.yellow,
-                          ),
+      backgroundColor: Colors.black,
+      body: Center(
+        child: FittedBox(
+          child: Container(
+            width: 375,
+            height: 812,
+            color: const Color(0xFFE0E0E0), // latar sesuai gambar
+            child: Stack(
+              children: [
+                // ===================== TOP PANEL =====================
+                Positioned(
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  child: Container(
+                    height: 100,
+                    color: Colors.grey[500],
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        _circleWithCross(),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            _line(),
+                            const SizedBox(height: 5),
+                            _line(),
+                          ],
                         ),
-                      ),
-                    ],
+                        _circleWithCross(),
+                      ],
+                    ),
                   ),
-                  const SizedBox(height: 24),
-                  // 🔹 Text Field
-                  Container(
+                ),
+
+                // ===================== USER TEXT =====================
+                const Positioned(
+                  top: 150,
+                  left: 20,
+                  child: Text(
+                    "",
+                    style: TextStyle(color: Colors.white70, fontSize: 14),
+                  ),
+                ),
+
+                // ===================== CENTER BOX =====================
+                Positioned(
+                  top: 230,
+                  left: 25,
+                  right: 25,
+                  child: Container(
+                    height: 240,
                     decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(50),
+                      color: Colors.grey[500],
+                      borderRadius: BorderRadius.circular(18),
                     ),
-                    child: const TextField(
-                      decoration: InputDecoration(
-                        hintText: 'Nama',
-                        border: InputBorder.none,
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: 20, vertical: 14),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        // Upper Circles
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            _smallCircle(),
+                            _smallCircle(),
+                          ],
+                        ),
 
-            const SizedBox(height: 20),
+                        // Upper box line (NOT clickable)
+                        _roundedBoxLine(),
 
-            // 🔹 TITLE & DISTANCE BUTTONS
-            const Text(
-              'Yuk liat Best Time Terbaik Kalian',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-              ),
-            ),
-            const SizedBox(height: 12),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [50, 100, 200].map((distance) {
-                bool isSelected = selectedDistance == distance;
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        selectedDistance = distance;
-                      });
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor:
-                          isSelected ? Colors.blue : const Color(0xFF1E3264),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                    ),
-                    child: Text(
-                      '$distance M',
-                      style: TextStyle(
-                        color: isSelected ? Colors.white : Colors.white70, // 🔹 ubah di sini
-                        fontWeight: FontWeight.bold,
-                      ),
+                        // Lower box line (CLICKABLE —> navigate)
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const CoachLoginPage(),
+                              ),
+                            );
+                          },
+                          child: _roundedBoxLine(),
+                        ),
+
+                        // Lower circles
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            _smallCircle(),
+                            _smallCircle(),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
-                );
-              }).toList(),
-            ),
+                ),
 
-            const SizedBox(height: 20),
-
-            // 🔹 LIST SWIMMERS
-            _buildSwimmerCard(
-              name: 'Nizam',
-              bebas: '00:28.45',
-              punggung: '00:31.12',
-              dada: '00:33.54',
-              kupu: '00:29.89',
+                // ===================== BOTTOM PANEL =====================
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: Container(
+                    height: 70,
+                    color: Colors.grey[500],
+                    alignment: Alignment.center,
+                    child: _line(),
+                  ),
+                ),
+              ],
             ),
-            _buildSwimmerCard(
-              name: 'Gofis',
-              bebas: '00:29.30',
-              punggung: '00:32.01',
-              dada: '00:35.24',
-              kupu: '00:30.10',
-            ),
-            const SizedBox(height: 30),
-          ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildSwimmerCard({
-    required String name,
-    required String bebas,
-    required String punggung,
-    required String dada,
-    required String kupu,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+  // ===================== Reusable UI Parts =====================
+
+  Widget _circleWithCross() {
+    return Container(
+      width: 40,
+      height: 40,
+      decoration:
+          const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+      child: const Center(
+        child: Text("✕", style: TextStyle(fontSize: 20, color: Colors.black)),
+      ),
+    );
+  }
+
+  Widget _smallCircle() {
+    return Container(
+      width: 30,
+      height: 30,
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        shape: BoxShape.circle,
+      ),
+    );
+  }
+
+  Widget _line() {
+    return Container(width: 150, height: 2, color: Colors.black);
+  }
+
+  Widget _roundedBoxLine() {
+    return Container(
+      width: 220,
+      height: 40,
+      decoration: BoxDecoration(
+        color: Colors.white70,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      alignment: Alignment.center,
       child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: Row(
-          children: [
-            Image.asset(
-              'assets/pyramid.png',
-              height: 70,
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(name,
-                      style:
-                          const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                  Text('Best Time Gaya Bebas: $bebas'),
-                  Text('Best Time Gaya Punggung: $punggung'),
-                  Text('Best Time Gaya Dada: $dada'),
-                  Text('Best Time Gaya Kupu: $kupu'),
-                ],
-              ),
-            ),
-            const Text(
-              'Selengkapnya',
-              style: TextStyle(color: Colors.grey),
-            )
-          ],
-        ),
+        width: 130,
+        height: 2,
+        color: Colors.black,
       ),
     );
   }
