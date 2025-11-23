@@ -162,10 +162,27 @@ class CoachLoginPage extends StatelessWidget {
         ),
       );
 
-  Widget _line() => Container(width: 150, height: 2, color: Colors.black);
+    Widget _line() => Container(
+    width: 150,
+    height: 2,
+    alignment: Alignment.centerLeft,   // <— RATANYA KIRI
+    child: Container(
+      width: 150,
+      height: 2,
+      color: Colors.black,
+    ),
+  );
 
-  Widget _lineSmall() =>
-      Container(width: 90, height: 2, color: Colors.black);
+  Widget _lineSmall() => Container(
+    width: 90,
+    height: 2,
+    alignment: Alignment.centerLeft,   // <— RATANYA KIRI
+    child: Container(
+      width: 90,
+      height: 2,
+      color: Colors.black,
+    ),
+  );
 
   Widget _roundedInput() {
     return Container(

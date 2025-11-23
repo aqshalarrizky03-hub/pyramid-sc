@@ -46,7 +46,6 @@ class CoachSelectsStudentsPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     GestureDetector(
                       onTap: () {
@@ -73,7 +72,33 @@ class CoachSelectsStudentsPage extends StatelessWidget {
               const SizedBox(height: 20),
 
               // ============================================================
-              // LIST KOLOM
+              // OVAL PERTAMA (KHUSUS)
+              // ============================================================
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Container(
+                  height: 65,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFAAAAAA),
+                    borderRadius: BorderRadius.circular(40),
+                  ),
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 25),
+                    child: Center(
+                      child: SizedBox(
+                        width: 160,
+                        height: 2,
+                        child: ColoredBox(color: Colors.black),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
+              // ============================================================
+              // LIST ITEM SESUAI GAMBAR
               // ============================================================
               Expanded(
                 child: ListView(
@@ -140,7 +165,7 @@ class CoachSelectsStudentsPage extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 18),
       decoration: BoxDecoration(
         color: const Color(0xFFAAAAAA),
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(15),
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -148,7 +173,6 @@ class CoachSelectsStudentsPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             _lineSmall(),
-
             Container(
               width: 38,
               height: 38,

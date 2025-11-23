@@ -53,6 +53,7 @@ class PyramidOasisPage extends StatelessWidget {
                 ),
 
                 // ===================== CENTER BOX =====================
+                // ===================== CENTER BOX =====================
                 Positioned(
                   top: 230,
                   left: 25,
@@ -63,41 +64,60 @@ class PyramidOasisPage extends StatelessWidget {
                       color: Colors.grey[500],
                       borderRadius: BorderRadius.circular(18),
                     ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    child: Stack(
                       children: [
-                        // Upper Circles
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            _smallCircle(),
-                            _smallCircle(),
-                          ],
+                        // ◯ pojok kiri atas
+                        Positioned(
+                          top: 20,
+                          left: 20,
+                          child: _smallCircle(),
                         ),
 
-                        // Upper box line (NOT clickable)
-                        _roundedBoxLine(),
-
-                        // Lower box line (CLICKABLE —> navigate)
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => const CoachLoginPage(),
-                              ),
-                            );
-                          },
-                          child: _roundedBoxLine(),
+                        // ◯ pojok kanan atas
+                        Positioned(
+                          top: 20,
+                          right: 20,
+                          child: _smallCircle(),
                         ),
 
-                        // Lower circles
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            _smallCircle(),
-                            _smallCircle(),
-                          ],
+                        // [ BOX LINE ATAS ]
+                        Positioned(
+                          top: 75,
+                          left: 0,
+                          right: 0,
+                          child: Center(child: _roundedBoxLine()),
+                        ),
+
+                        // [ BOX LINE BAWAH + navigasi ]
+                        Positioned(
+                          top: 135,
+                          left: 0,
+                          right: 0,
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => const CoachLoginPage(),
+                                ),
+                              );
+                            },
+                            child: Center(child: _roundedBoxLine()),
+                          ),
+                        ),
+
+                        // ◯ pojok kiri bawah
+                        Positioned(
+                          bottom: 20,
+                          left: 20,
+                          child: _smallCircle(),
+                        ),
+
+                        // ◯ pojok kanan bawah
+                        Positioned(
+                          bottom: 20,
+                          right: 20,
+                          child: _smallCircle(),
                         ),
                       ],
                     ),
