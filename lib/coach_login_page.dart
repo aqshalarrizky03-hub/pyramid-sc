@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'pyramid_oasis_page.dart';
+import 'coach_selects_the_student_class_page.dart'; // IMPORT HALAMAN TUJUAN
 
 class CoachLoginPage extends StatelessWidget {
   const CoachLoginPage({super.key});
@@ -15,7 +17,9 @@ class CoachLoginPage extends StatelessWidget {
             color: const Color(0xFFE0E0E0),
             child: Stack(
               children: [
+                // =======================
                 // TOP PANEL
+                // =======================
                 Positioned(
                   top: 0,
                   left: 0,
@@ -27,6 +31,8 @@ class CoachLoginPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         _circleX(),
+
+                        // LINE CENTER
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -35,13 +41,17 @@ class CoachLoginPage extends StatelessWidget {
                             _line(),
                           ],
                         ),
+
+                        // RIGHT CIRCLE (TIDAK JADI NAVIGASI)
                         _circleX(),
                       ],
                     ),
                   ),
                 ),
 
+                // =======================
                 // LOGIN BOX
+                // =======================
                 Positioned(
                   top: 220,
                   left: 35,
@@ -60,29 +70,63 @@ class CoachLoginPage extends StatelessWidget {
                         _line(),
                         _roundedInput(),
 
+                        // =======================
+                        // KOTAK KECIL + TOMBOL OVAL
+                        // =======================
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Container(width: 30, height: 30, color: Colors.white),
-                            const SizedBox(width: 20),
-                            Container(
-                              width: 140,
-                              height: 25,
-                              decoration: BoxDecoration(
-                                color: Colors.white70,
-                                borderRadius: BorderRadius.circular(20),
+                            // Kotak kecil (SEKARANG BISA NAVIGASI)
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => const PyramidOasisPage(),
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                width: 30,
+                                height: 30,
+                                color: Colors.white,
                               ),
-                              alignment: Alignment.center,
-                              child: _lineSmall(),
+                            ),
+
+                            const SizedBox(width: 20),
+
+                            // TOMBOL OVAL — INI NAVIGASI
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) =>
+                                        const CoachSelectsTheStudentClassPage(),
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                width: 140,
+                                height: 25,
+                                decoration: BoxDecoration(
+                                  color: Colors.white70,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                alignment: Alignment.center,
+                                child: _lineSmall(),
+                              ),
                             ),
                           ],
-                        )
+                        ),
                       ],
                     ),
                   ),
                 ),
 
+                // =======================
                 // BOTTOM PANEL
+                // =======================
                 Positioned(
                   bottom: 0,
                   left: 0,
@@ -102,16 +146,23 @@ class CoachLoginPage extends StatelessWidget {
     );
   }
 
+  // ===================================================
+  // REUSABLE ELEMENTS
+  // ===================================================
+
   Widget _circleX() => Container(
         width: 40,
         height: 40,
         decoration: const BoxDecoration(
-            color: Colors.white, shape: BoxShape.circle),
-        child: const Center(child: Text("✕", style: TextStyle(fontSize: 18))),
+          color: Colors.white,
+          shape: BoxShape.circle,
+        ),
+        child: const Center(
+          child: Text("✕", style: TextStyle(fontSize: 18)),
+        ),
       );
 
-  Widget _line() =>
-      Container(width: 150, height: 2, color: Colors.black);
+  Widget _line() => Container(width: 150, height: 2, color: Colors.black);
 
   Widget _lineSmall() =>
       Container(width: 90, height: 2, color: Colors.black);
