@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
-import 'coach_login_page.dart';
-import 'parent_select_class_page.dart';
+import 'parent_select_coach_page.dart';
 
-class PyramidOasisPage extends StatelessWidget {
-  const PyramidOasisPage({super.key});
+class ParentSelectClassPage extends StatelessWidget {
+  const ParentSelectClassPage({super.key});
 
   final Color _darkBlue = const Color(0xFF233055);
-  final Color _yellow = const Color(0xFFFDD835); // Adjustable yellow
+  final Color _yellow = const Color(0xFFFDD835);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: _darkBlue,
       body: SafeArea(
-        top: false, // Allow header to go to top edge
+        top: false, 
         bottom: false,
         child: Column(
           children: [
             // ================= HEADER =================
+            // Exactly the same as the main page
             Container(
               padding: const EdgeInsets.only(
                   top: 50, left: 16, right: 16, bottom: 20),
@@ -31,7 +31,7 @@ class PyramidOasisPage extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  // Logo Kiri (Pyramid)
+                   // Logo Kiri
                   SizedBox(
                     width: 60,
                     height: 60,
@@ -56,14 +56,13 @@ class PyramidOasisPage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 10),
-                  // Logo Kanan (Akuatik placeholder)
+                   // Logo Kanan
                   SizedBox(
                     width: 60,
                     height: 60,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                         // Placeholder for Akuatik Icon
                          Icon(Icons.waves, color: Colors.red[800], size: 30),
                          Text(
                            "Akuatik",
@@ -91,39 +90,21 @@ class PyramidOasisPage extends StatelessWidget {
             Expanded(
               child: Center(
                 child: Container(
-                  width: 300,
-                  height: 250,
+                  width: 320, // Slightly wider for this page
+                  height: 420, // Taller to fit 3 buttons and text
                   decoration: BoxDecoration(
                     color: _yellow,
                     borderRadius: BorderRadius.circular(25),
                   ),
                   child: Stack(
                     children: [
-                      // Dekorasi Lingkaran di Pojok (Efek Cutout/Hole)
-                      // Kiri Atas
-                      Positioned(
-                        top: 20,
-                        left: 20,
-                        child: CircleAvatar(
-                          radius: 15,
-                          backgroundColor: _darkBlue,
-                        ),
-                      ),
-                      // Kanan Atas
-                      Positioned(
-                        top: 20,
-                        right: 20,
-                        child: CircleAvatar(
-                          radius: 15,
-                          backgroundColor: _darkBlue,
-                        ),
-                      ),
+                      // Dekorasi Lingkaran (Hanya di Bawah)
                       // Kiri Bawah
                       Positioned(
                         bottom: 20,
                         left: 20,
                         child: CircleAvatar(
-                          radius: 15,
+                          radius: 20, // Size looks a bit bigger in reference
                           backgroundColor: _darkBlue,
                         ),
                       ),
@@ -132,76 +113,48 @@ class PyramidOasisPage extends StatelessWidget {
                         bottom: 20,
                         right: 20,
                         child: CircleAvatar(
-                          radius: 15,
+                          radius: 20,
                           backgroundColor: _darkBlue,
                         ),
                       ),
 
-                      // Tombol Tengah
-                      Center(
+                      // Content
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Column(
-                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            // Tombol Coach
-                            SizedBox(
-                              width: 200,
-                              height: 50,
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: _darkBlue,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30),
-                                  ),
-                                ),
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (_) => const CoachLoginPage(),
-                                    ),
-                                  );
-                                },
-                                child: Text(
-                                  "Coach",
-                                  style: TextStyle(
-                                    color: _yellow,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
+                            // Judul
+                            Text(
+                              "Pilih Kelas Murid/Anak Anda",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: _darkBlue,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
+                            const SizedBox(height: 30),
+
+                            // Tombol Dasar/Toddler
+                            _buildButton("Dasar/Toodler", () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => const ParentSelectCoachPage(),
+                                  ),
+                                );
+                            }),
                             const SizedBox(height: 20),
-                            // Tombol Orang Tua
-                            SizedBox(
-                              width: 200,
-                              height: 50,
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: _darkBlue,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30),
-                                  ),
-                                ),
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (_) => const ParentSelectClassPage(),
-                                    ),
-                                  );
-                                },
-                                child: Text(
-                                  "Orang Tua/Wali Murid",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: _yellow,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ),
+                            
+                            // Tombol Semi-Pro
+                            _buildButton("Semi-Pro", () {}),
+                            const SizedBox(height: 20),
+
+                            // Tombol Progressif
+                            _buildButton("Progressif", () {}),
+                            
+                            const SizedBox(height: 30), // Spacing for bottom circles
                           ],
                         ),
                       ),
@@ -234,6 +187,30 @@ class PyramidOasisPage extends StatelessWidget {
                ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildButton(String text, VoidCallback onPressed) {
+    return SizedBox(
+      width: 220,
+      height: 50,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: _darkBlue,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30),
+          ),
+        ),
+        onPressed: onPressed,
+        child: Text(
+          text,
+          style: TextStyle(
+            color: _yellow, // Matching yellow text
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     );
