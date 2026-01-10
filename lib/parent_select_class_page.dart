@@ -12,15 +12,18 @@ class ParentSelectClassPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: _darkBlue,
       body: SafeArea(
-        top: false, 
+        top: false,
         bottom: false,
         child: Column(
           children: [
             // ================= HEADER =================
-            // Exactly the same as the main page
             Container(
               padding: const EdgeInsets.only(
-                  top: 50, left: 16, right: 16, bottom: 20),
+                top: 50,
+                left: 16,
+                right: 16,
+                bottom: 20,
+              ),
               decoration: BoxDecoration(
                 color: _yellow,
                 borderRadius: const BorderRadius.only(
@@ -29,21 +32,16 @@ class ParentSelectClassPage extends StatelessWidget {
                 ),
               ),
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                   // Logo Kiri
                   SizedBox(
                     width: 60,
                     height: 60,
                     child: Image.asset(
                       'assets/pyramid.png',
                       fit: BoxFit.contain,
-                      errorBuilder: (context, error, stackTrace) =>
-                          const Icon(Icons.pool, size: 40),
                     ),
                   ),
                   const SizedBox(width: 10),
-                  // Teks Tengah
                   Expanded(
                     child: Text(
                       "Selamat Datang di Aplikasi\nPyramid Oasis Swimming Club",
@@ -56,32 +54,65 @@ class ParentSelectClassPage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 10),
-                   // Logo Kanan
                   SizedBox(
                     width: 60,
-                    height: 60,
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                         Icon(Icons.waves, color: Colors.red[800], size: 30),
-                         Text(
-                           "Akuatik",
-                           style: TextStyle(
-                             fontSize: 10, 
-                             color: _darkBlue, 
-                             fontWeight: FontWeight.bold
-                           ),
-                         ),
-                         Text(
-                           "Indonesia",
-                           style: TextStyle(
-                             fontSize: 8, 
-                             color: _darkBlue
-                           ),
-                         )
+                        Icon(Icons.waves, color: Colors.red[800]),
+                        Text(
+                          "Akuatik",
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: _darkBlue,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          "Indonesia",
+                          style: TextStyle(
+                            fontSize: 8,
+                            color: _darkBlue,
+                          ),
+                        ),
                       ],
                     ),
                   ),
+                ],
+              ),
+            ),
+
+            // ================= SUB HEADER (BACK) =================
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+              child: Row(
+                children: [
+                  GestureDetector(
+                    onTap: () => Navigator.pop(context),
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: _yellow.withOpacity(0.11),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: const Icon(
+                        Icons.arrow_back,
+                        color: Color(0xFFFDD835),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  const Expanded(
+                    child: Text(
+                      "",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Color(0xFFFDD835),
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 40),
                 ],
               ),
             ),
@@ -90,71 +121,66 @@ class ParentSelectClassPage extends StatelessWidget {
             Expanded(
               child: Center(
                 child: Container(
-                  width: 320, // Slightly wider for this page
-                  height: 420, // Taller to fit 3 buttons and text
+                  width: 320,
+                  height: 350,
                   decoration: BoxDecoration(
                     color: _yellow,
-                    borderRadius: BorderRadius.circular(25),
+                    borderRadius: BorderRadius.circular(30),
                   ),
                   child: Stack(
                     children: [
-                      // Dekorasi Lingkaran (Hanya di Bawah)
-                      // Kiri Bawah
+                      // dekorasi bawah
                       Positioned(
                         bottom: 20,
                         left: 20,
                         child: CircleAvatar(
-                          radius: 20, // Size looks a bit bigger in reference
+                          radius: 18,
                           backgroundColor: _darkBlue,
                         ),
                       ),
-                      // Kanan Bawah
                       Positioned(
                         bottom: 20,
                         right: 20,
                         child: CircleAvatar(
-                          radius: 20,
+                          radius: 18,
                           backgroundColor: _darkBlue,
                         ),
                       ),
 
-                      // Content
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                      // ================= CONTENT CARD =================
+                      Center(
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
                           children: [
-                            // Judul
-                            Text(
-                              "Pilih Kelas Murid/Anak Anda",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: _darkBlue,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
+                            // ===== JUDUL (NAIK DIKIT) =====
+                            Transform.translate(
+                              offset: const Offset(0, -12),
+                              child: Text(
+                                "Pilih Kelas Murid/Anak Anda",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: _darkBlue,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
-                            const SizedBox(height: 30),
 
-                            // Tombol Dasar/Toddler
-                            _buildButton("Dasar/Toodler", () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) => const ParentSelectCoachPage(),
-                                  ),
-                                );
+                            const SizedBox(height: 12),
+
+                            _buildButton("Dasar / Toddler", () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) =>
+                                      const ParentSelectCoachPage(),
+                                ),
+                              );
                             }),
-                            const SizedBox(height: 20),
-                            
-                            // Tombol Semi-Pro
+                            const SizedBox(height: 18),
                             _buildButton("Semi-Pro", () {}),
-                            const SizedBox(height: 20),
-
-                            // Tombol Progressif
+                            const SizedBox(height: 18),
                             _buildButton("Progressif", () {}),
-                            
-                            const SizedBox(height: 30), // Spacing for bottom circles
                           ],
                         ),
                       ),
@@ -166,25 +192,25 @@ class ParentSelectClassPage extends StatelessWidget {
 
             // ================= FOOTER =================
             Container(
-               width: double.infinity,
-               padding: const EdgeInsets.symmetric(vertical: 20),
-               decoration: BoxDecoration(
-                 color: _yellow,
-                 borderRadius: const BorderRadius.only(
-                   topLeft: Radius.circular(30),
-                   topRight: Radius.circular(30),
-                 ),
-               ),
-               child: Center(
-                 child: Text(
-                   "@pyramid_oasis",
-                   style: TextStyle(
-                     color: _darkBlue,
-                     fontWeight: FontWeight.bold,
-                     fontSize: 16,
-                   ),
-                 ),
-               ),
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              decoration: BoxDecoration(
+                color: _yellow,
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(30),
+                  topRight: Radius.circular(30),
+                ),
+              ),
+              child: Center(
+                child: Text(
+                  "@pyramid_oasis",
+                  style: TextStyle(
+                    color: _darkBlue,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+              ),
             ),
           ],
         ),
@@ -207,7 +233,7 @@ class ParentSelectClassPage extends StatelessWidget {
         child: Text(
           text,
           style: TextStyle(
-            color: _yellow, // Matching yellow text
+            color: _yellow,
             fontSize: 16,
             fontWeight: FontWeight.bold,
           ),

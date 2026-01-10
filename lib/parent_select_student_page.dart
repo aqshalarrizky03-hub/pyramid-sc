@@ -1,11 +1,44 @@
 import 'package:flutter/material.dart';
 import 'parent_student_report_page.dart';
 
-class ParentSelectStudentPage extends StatelessWidget {
+class ParentSelectStudentPage extends StatefulWidget {
   const ParentSelectStudentPage({super.key});
 
+  @override
+  State<ParentSelectStudentPage> createState() =>
+      _ParentSelectStudentPageState();
+}
+
+class _ParentSelectStudentPageState extends State<ParentSelectStudentPage> {
   final Color _darkBlue = const Color(0xFF233055);
   final Color _yellow = const Color(0xFFFDD835);
+
+  final TextEditingController _searchController = TextEditingController();
+
+  final List<String> _allStudents = [
+    "Bara",
+    "Fatih",
+    "Bilal",
+    "Arshad",
+    "Dawai",
+  ];
+
+  List<String> _filteredStudents = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _filteredStudents = _allStudents;
+  }
+
+  void _filterStudents(String query) {
+    setState(() {
+      _filteredStudents = _allStudents
+          .where((student) =>
+              student.toLowerCase().contains(query.toLowerCase()))
+          .toList();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +61,6 @@ class ParentSelectStudentPage extends StatelessWidget {
                 ),
               ),
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(
                     width: 60,
@@ -36,7 +68,7 @@ class ParentSelectStudentPage extends StatelessWidget {
                     child: Image.asset(
                       'assets/pyramid.png',
                       fit: BoxFit.contain,
-                      errorBuilder: (context, error, stackTrace) =>
+                      errorBuilder: (_, __, ___) =>
                           const Icon(Icons.pool, size: 40),
                     ),
                   ),
@@ -53,34 +85,26 @@ class ParentSelectStudentPage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 10),
-                  SizedBox(
-                    width: 60,
-                    height: 60,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.waves, color: Colors.red[800], size: 30),
-                        Text(
-                          "Akuatik",
+                  Column(
+                    children: [
+                      Icon(Icons.waves, color: Colors.red[800], size: 30),
+                      Text("Akuatik",
                           style: TextStyle(
                               fontSize: 10,
                               color: _darkBlue,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          "Indonesia",
-                          style: TextStyle(fontSize: 8, color: _darkBlue),
-                        )
-                      ],
-                    ),
-                  ),
+                              fontWeight: FontWeight.bold)),
+                      Text("Indonesia",
+                          style:
+                              TextStyle(fontSize: 8, color: _darkBlue)),
+                    ],
+                  )
                 ],
               ),
             ),
 
-            // ================= SUB-HEADER (Title + Back) =================
+            // ================= TITLE =================
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
               child: Row(
                 children: [
                   GestureDetector(
@@ -88,16 +112,17 @@ class ParentSelectStudentPage extends StatelessWidget {
                     child: Container(
                       padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.2),
+                        color: _yellow.withOpacity(0.11),
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: const Icon(Icons.arrow_back, color: Color(0xFFFDD835)), 
+                      child: const Icon(Icons.arrow_back,
+                          color: Color(0xFFFDD835)),
                     ),
                   ),
                   const SizedBox(width: 10),
                   const Expanded(
                     child: Text(
-                      "Pilih Murid/Anak Anda",
+                      "Pilih Murid / Anak Anda",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Color(0xFFFDD835),
@@ -106,46 +131,53 @@ class ParentSelectStudentPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(width: 40), 
+                  const SizedBox(width: 40),
                 ],
               ),
             ),
 
             // ================= SEARCH BAR =================
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Container(
+                height: 45,
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 decoration: BoxDecoration(
-                  color: _yellow.withOpacity(0.8), // Slightly transparent/lighter yellow if needed, usually full color
-                  borderRadius: BorderRadius.circular(30),
+                  color: _yellow,
+                  borderRadius: BorderRadius.circular(25),
                 ),
                 child: TextField(
+                  controller: _searchController,
+                  onChanged: _filterStudents,
                   decoration: const InputDecoration(
-                    hintText: "Masukan Nama Murid/Anak",
+                    hintText: "Cari nama murid...",
                     border: InputBorder.none,
-                    hintStyle: TextStyle(color: Colors.black54),
-                    suffixIcon: Icon(Icons.search, color: Colors.black54),
+                    icon: Icon(Icons.search),
                   ),
-                  style: const TextStyle(color: Colors.black87),
                 ),
               ),
             ),
 
-            const SizedBox(height: 10),
+            const SizedBox(height: 15),
 
             // ================= LIST MURID =================
             Expanded(
-              child: ListView(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                children: [
-                  _buildStudentButton(context, "Bara"),
-                  _buildStudentButton(context, "Fatih"),
-                  _buildStudentButton(context, "Bilal"),
-                  _buildStudentButton(context, "Arshad"),
-                  _buildStudentButton(context, "Dawai"),
-                ],
-              ),
+              child: _filteredStudents.isEmpty
+                  ? const Center(
+                      child: Text(
+                        "Murid tidak ditemukan",
+                        style: TextStyle(color: Colors.white70),
+                      ),
+                    )
+                  : ListView.builder(
+                      padding:
+                          const EdgeInsets.symmetric(horizontal: 20),
+                      itemCount: _filteredStudents.length,
+                      itemBuilder: (context, index) {
+                        return _buildStudentButton(
+                            context, _filteredStudents[index]);
+                      },
+                    ),
             ),
 
             // ================= FOOTER =================
@@ -180,7 +212,6 @@ class ParentSelectStudentPage extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 15),
       child: SizedBox(
-        width: double.infinity,
         height: 50,
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
@@ -192,7 +223,10 @@ class ParentSelectStudentPage extends StatelessWidget {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (_) => ParentStudentReportPage(studentName: name)),
+              MaterialPageRoute(
+                builder: (_) =>
+                    ParentStudentReportPage(studentName: name),
+              ),
             );
           },
           child: Align(

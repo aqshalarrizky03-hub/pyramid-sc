@@ -88,7 +88,7 @@ class ParentSelectCoachPage extends StatelessWidget {
                     child: Container(
                       padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.2), // Slight background for visibility
+                        color: _yellow.withOpacity(0.11), // Slight background for visibility
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: const Icon(Icons.arrow_back, color: Color(0xFFFDD835)), // Yellow icon

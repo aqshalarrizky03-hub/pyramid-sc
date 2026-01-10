@@ -1,199 +1,229 @@
 import 'package:flutter/material.dart';
-import 'pyramid_oasis_page.dart';
-import 'coach_selects_the_student_class_page.dart'; // IMPORT HALAMAN TUJUAN
+import 'coach_selects_the_student_class_page.dart';
 
 class CoachLoginPage extends StatelessWidget {
   const CoachLoginPage({super.key});
 
+  final Color _darkBlue = const Color(0xFF233055);
+  final Color _yellow = const Color(0xFFFDD835);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
-      body: Center(
-        child: FittedBox(
-          child: Container(
-            width: 375,
-            height: 812,
-            color: const Color(0xFFE0E0E0),
-            child: Stack(
-              children: [
-                // =======================
-                // TOP PANEL
-                // =======================
-                Positioned(
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  child: Container(
-                    height: 100,
-                    color: Colors.grey[500],
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        _circleX(),
-
-                        // LINE CENTER
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            _line(),
-                            const SizedBox(height: 5),
-                            _line(),
-                          ],
-                        ),
-
-                        // RIGHT CIRCLE (TIDAK JADI NAVIGASI)
-                        _circleX(),
-                      ],
+      backgroundColor: _darkBlue,
+      body: SafeArea(
+        top: false,
+        bottom: false,
+        child: Column(
+          children: [
+            // ================= HEADER =================
+            Container(
+              padding: const EdgeInsets.only(
+                top: 50,
+                left: 16,
+                right: 16,
+                bottom: 20,
+              ),
+              decoration: BoxDecoration(
+                color: _yellow,
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(30),
+                  bottomRight: Radius.circular(30),
+                ),
+              ),
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: 60,
+                    height: 60,
+                    child: Image.asset('assets/pyramid.png'),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Text(
+                      "Selamat Datang di Aplikasi\nPyramid Oasis Swimming Club",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: _darkBlue,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                      ),
                     ),
                   ),
-                ),
-
-                // =======================
-                // LOGIN BOX
-                // =======================
-                Positioned(
-                  top: 220,
-                  left: 35,
-                  right: 35,
-                  child: Container(
-                    height: 300,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[500],
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        _line(),
-                        _roundedInput(),
-                        _line(),
-                        _roundedInput(),
-
-                        // =======================
-                        // KOTAK KECIL + TOMBOL OVAL
-                        // =======================
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            // Kotak kecil (SEKARANG BISA NAVIGASI)
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) => const PyramidOasisPage(),
-                                  ),
-                                );
-                              },
-                              child: Container(
-                                width: 30,
-                                height: 30,
-                                color: Colors.white,
-                              ),
-                            ),
-
-                            const SizedBox(width: 20),
-
-                            // TOMBOL OVAL — INI NAVIGASI
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) =>
-                                        const CoachSelectsTheStudentClassPage(),
-                                  ),
-                                );
-                              },
-                              child: Container(
-                                width: 140,
-                                height: 25,
-                                decoration: BoxDecoration(
-                                  color: Colors.white70,
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                alignment: Alignment.center,
-                                child: _lineSmall(),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-
-                // =======================
-                // BOTTOM PANEL
-                // =======================
-                Positioned(
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  child: Container(
-                    height: 70,
-                    color: Colors.grey[500],
-                    alignment: Alignment.center,
-                    child: _line(),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
+
+            // ================= BACK BUTTON (LUAR CARD) =================
+            Padding(
+              padding: const EdgeInsets.only(left: 16, top: 12),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: GestureDetector(
+                  onTap: () => Navigator.pop(context),
+                  child: Container(
+                    width: 44,
+                    height: 44,
+                    decoration: BoxDecoration(
+                      color: _yellow.withOpacity(0.11),
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                    child: Icon(
+                      Icons.arrow_back,
+                      color: _yellow,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+
+            // ================= BODY =================
+            Expanded(
+              child: Center(
+                child: Container(
+                  width: 360,
+                  decoration: BoxDecoration(
+                    color: _yellow,
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  child: Stack(
+                    children: [
+                      // dekorasi bawah
+                      Positioned(
+                        bottom: 20,
+                        left: 20,
+                        child: CircleAvatar(
+                          radius: 18,
+                          backgroundColor: _darkBlue,
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 20,
+                        right: 20,
+                        child: CircleAvatar(
+                          radius: 18,
+                          backgroundColor: _darkBlue,
+                        ),
+                      ),
+
+                      // ================= CONTENT =================
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 30, 20, 30),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Nama Pelatih",
+                              style: TextStyle(
+                                color: _darkBlue,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            _input("Masukkan nama lengkap"),
+
+                            const SizedBox(height: 20),
+
+                            Text(
+                              "Password",
+                              style: TextStyle(
+                                color: _darkBlue,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            _input("Masukkan password"),
+
+                            const SizedBox(height: 30),
+
+                            // ================= BUTTON MASUK =================
+                            Center(
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) =>
+                                          const CoachSelectTheStudentClassPage(),
+                                    ),
+                                  );
+                                },
+                                child: Container(
+                                  width: 180,
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                    color: _darkBlue,
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    "Masuk",
+                                    style: TextStyle(
+                                      color: _yellow,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+
+            // ================= FOOTER =================
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              decoration: BoxDecoration(
+                color: _yellow,
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(30),
+                  topRight: Radius.circular(30),
+                ),
+              ),
+              child: Center(
+                child: Text(
+                  "@pyramid_oasis",
+                  style: TextStyle(
+                    color: _darkBlue,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
   }
 
-  // ===================================================
-  // REUSABLE ELEMENTS
-  // ===================================================
-
-  Widget _circleX() => Container(
-        width: 40,
-        height: 40,
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          shape: BoxShape.circle,
-        ),
-        child: const Center(
-          child: Text("✕", style: TextStyle(fontSize: 18)),
-        ),
-      );
-
-    Widget _line() => Container(
-    width: 150,
-    height: 2,
-    alignment: Alignment.centerLeft,   // <— RATANYA KIRI
-    child: Container(
-      width: 150,
-      height: 2,
-      color: Colors.black,
-    ),
-  );
-
-  Widget _lineSmall() => Container(
-    width: 90,
-    height: 2,
-    alignment: Alignment.centerLeft,   // <— RATANYA KIRI
-    child: Container(
-      width: 90,
-      height: 2,
-      color: Colors.black,
-    ),
-  );
-
-  Widget _roundedInput() {
+  // ================= INPUT =================
+  Widget _input(String hint) {
     return Container(
-      height: 40,
-      width: 260,
+      height: 48,
+      padding: const EdgeInsets.symmetric(horizontal: 18),
       decoration: BoxDecoration(
-        color: Colors.white70,
-        borderRadius: BorderRadius.circular(20),
+        color: _darkBlue,
+        borderRadius: BorderRadius.circular(14),
       ),
-      alignment: Alignment.center,
-      child: _lineSmall(),
+      alignment: Alignment.centerLeft,
+      child: Text(
+        hint,
+        style: TextStyle(
+          color: Colors.white.withOpacity(0.6),
+          fontSize: 14,
+        ),
+      ),
     );
   }
 }

@@ -1,194 +1,227 @@
 import 'package:flutter/material.dart';
-import 'coach_selects_students_page.dart';   // <-- IMPORT HALAMAN TUJUAN
+import 'features/coach/presentation/pages/coach_selects_students_page.dart';
 
-class CoachSelectsTheStudentClassPage extends StatelessWidget {
-  const CoachSelectsTheStudentClassPage({super.key});
+class CoachSelectTheStudentClassPage extends StatelessWidget {
+  const CoachSelectTheStudentClassPage({super.key});
+
+  final Color _darkBlue = const Color(0xFF233055);
+  final Color _yellow = const Color(0xFFFDD835);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
-      body: Center(
-        child: Container(
-          width: 375,
-          height: 812,
-          color: const Color(0xFFE6E6E6),
-          child: Column(
-            children: [
-              // ===========================
-              // HEADER
-              // ===========================
-              Container(
-                height: 90,
-                color: const Color(0xFFA6A6A6),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    _circleX(),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        _longLine(),
-                        const SizedBox(height: 6),
-                        _longLine(),
-                      ],
-                    ),
-                    _circleX(),
-                  ],
+      backgroundColor: _darkBlue,
+      body: SafeArea(
+        child: Column(
+          children: [
+            // ================= HEADER =================
+            Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 20,
+              ),
+              decoration: BoxDecoration(
+                color: _yellow.withOpacity(0.9),
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(30),
+                  bottomRight: Radius.circular(30),
                 ),
               ),
-
-              const SizedBox(height: 30),
-
-              _longLine(),
-
-              // ===========================
-              // CENTER PANEL
-              // ===========================
-              Expanded(
-                child: Center(
-                  child: Container(
-                    width: 315,
-                    padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 25),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFA6A6A6),
-                      borderRadius: BorderRadius.circular(20),
+              child: Row(
+                children: [
+                  Image.asset(
+                    'assets/pyramid.png',
+                    width: 50,
+                    height: 50,
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Text(
+                      "Selamat Datang di Aplikasi\nPyramid Oasis Swimming Club Akuatik",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: _darkBlue,
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
+                  ),
+                  const SizedBox(width: 10),
+                  Column(
+                    children: [
+                      Icon(Icons.waves, color: Colors.red[800]),
+                      Text(
+                        "Indonesia",
+                        style: TextStyle(
+                          fontSize: 10,
+                          color: _darkBlue,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+
+            // ================= BACK BUTTON =================
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: GestureDetector(
+                  onTap: () => Navigator.pop(context),
+                  child: Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: _yellow.withOpacity(0.12),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Icon(
+                      Icons.arrow_back,
+                      color: _yellow,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+
+            // ================= BODY =================
+            Expanded(
+              child: Column(
+                children: [
+                  const SizedBox(height: 10),
+
+                  Text(
+                    "Welcome Coach\nMuhammad Aqshal Arrizky",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: _yellow,
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+
+                  const SizedBox(height: 30),
+
+                  // ================= CARD =================
+                  Container(
+                    width: 360,
+                    height: 330, // card tetap
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 30,
+                      horizontal: 20,
+                    ),
+                    decoration: BoxDecoration(
+                      color: _yellow.withOpacity(0.9),
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: Stack(
                       children: [
-                        _shortLine(),
-                        const SizedBox(height: 22),
+                        // dekorasi bulat
+                        Positioned(
+                          bottom: 12,
+                          left: 12,
+                          child: CircleAvatar(
+                            radius: 16,
+                            backgroundColor: _darkBlue,
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 12,
+                          right: 12,
+                          child: CircleAvatar(
+                            radius: 16,
+                            backgroundColor: _darkBlue,
+                          ),
+                        ),
 
-                        // BUTTON 1 (TIDAK NAVIGASI)
-                        _pillButton(isClickable: false, context: context),
-                        const SizedBox(height: 18),
-
-                        // BUTTON 2 (ADA NAVIGASI)
-                        _pillButton(isClickable: true, context: context),
-                        const SizedBox(height: 18),
-
-                        // BUTTON 3 (TIDAK NAVIGASI)
-                        _pillButton(isClickable: false, context: context),
-                        const SizedBox(height: 28),
-
-                        // ===============================
-                        // CIRCLES LEFT & RIGHT
-                        // ===============================
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        Column(
                           children: [
-                            _circleWhite(), // kiri
-                            _circleWhite(), // kanan
+                            // ===== JUDUL TENGAH =====
+                            Center(
+                              child: Text(
+                                "Pilih Kelas Murid",
+                                style: TextStyle(
+                                  color: _darkBlue,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+
+                            const SizedBox(height: 30),
+
+                            _buildClassButton(context, "Dasar"),
+                            const SizedBox(height: 20),
+                            _buildClassButton(context, "Semi-Pro"),
+                            const SizedBox(height: 20),
+                            _buildClassButton(context, "Progressif"),
                           ],
                         ),
                       ],
                     ),
                   ),
+                ],
+              ),
+            ),
+
+            // ================= FOOTER =================
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              decoration: BoxDecoration(
+                color: _yellow.withOpacity(0.9),
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(30),
+                  topRight: Radius.circular(30),
                 ),
               ),
-
-              // ===========================
-              // FOOTER
-              // ===========================
-              Container(
-                height: 55,
-                width: double.infinity,
-                color: const Color(0xFFA6A6A6),
-                alignment: Alignment.center,
-                child: _longLine(),
+              child: Center(
+                child: Text(
+                  "@pyramid_oasis",
+                  style: TextStyle(
+                    color: _darkBlue,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
   }
 
-  // ===============================
-  // REUSABLE WIDGETS
-  // ===============================
-
-  Widget _circleX() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Container(
-        width: 42,
-        height: 42,
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          shape: BoxShape.circle,
+  // ================= BUTTON KELAS =================
+  Widget _buildClassButton(BuildContext context, String text) {
+    return SizedBox(
+      width: 220, // ⬅️ hanya button yang mengecil
+      height: 48,
+      child: ElevatedButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => const CoachSelectsStudentsPage(),
+            ),
+          );
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: _darkBlue,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30),
+          ),
         ),
-        child: const Center(
-          child: Text(
-            "✕",
-            style: TextStyle(fontSize: 20),
+        child: Text(
+          text,
+          style: TextStyle(
+            color: _yellow,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
           ),
         ),
       ),
-    );
-  }
-
-  Widget _circleWhite() {
-    return Container(
-      width: 34,
-      height: 34,
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        shape: BoxShape.circle,
-      ),
-    );
-  }
-
-  Widget _longLine() {
-    return Container(
-      width: 130,
-      height: 2,
-      color: Colors.black,
-    );
-  }
-
-  Widget _shortLine() {
-    return Container(
-      width: 100,
-      height: 2,
-      color: Colors.black,
-    );
-  }
-
-  // ======================================================
-  // PILL BUTTON DENGAN OPTIONAL NAVIGASI
-  // ======================================================
-  Widget _pillButton({required bool isClickable, required BuildContext context}) {
-    final button = Container(
-      width: 210,
-      height: 38,
-      decoration: BoxDecoration(
-        color: const Color(0xFFD9D9D9),
-        borderRadius: BorderRadius.circular(30),
-      ),
-      alignment: Alignment.center,
-      child: Container(
-        width: 90,
-        height: 2,
-        color: Colors.black,
-      ),
-    );
-
-    // Jika tombol tidak clickable → return biasa
-    if (!isClickable) return button;
-
-    // Jika clickable → bungkus pakai GestureDetector
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (_) => const CoachSelectsStudentsPage(),
-          ),
-        );
-      },
-      child: button,
     );
   }
 }

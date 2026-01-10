@@ -91,7 +91,7 @@ class PyramidOasisPage extends StatelessWidget {
             Expanded(
               child: Center(
                 child: Container(
-                  width: 300,
+                  width: 340,
                   height: 250,
                   decoration: BoxDecoration(
                     color: _yellow,
@@ -144,7 +144,7 @@ class PyramidOasisPage extends StatelessWidget {
                           children: [
                             // Tombol Coach
                             SizedBox(
-                              width: 200,
+                              width: 250,
                               height: 50,
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
@@ -174,7 +174,7 @@ class PyramidOasisPage extends StatelessWidget {
                             const SizedBox(height: 20),
                             // Tombol Orang Tua
                             SizedBox(
-                              width: 200,
+                              width: 250,
                               height: 50,
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
